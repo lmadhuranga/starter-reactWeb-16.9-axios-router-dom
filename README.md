@@ -9,7 +9,8 @@ In the project directory, you can run:
 
 Runs the app in the development mode.<br>
 Open [http://localhost:3001](http://localhost:3001) client
-Open [http://localhost:3000](http://localhost:3000) server . 
+Open [http://localhost:3000](http://localhost:3000) server .
+ 
 [Json Server](https://github.com/typicode/json-server) Json server . 
 
 
