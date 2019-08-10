@@ -1,19 +1,58 @@
 import React from 'react'
 import axios from 'axios'
-class Create extends React.Component {
+class Update extends React.Component {
   constructor(){
     super();
     this.state = { 
       name: '',
-      email: ''
+      email: '',
+      id:0
     }
-
+    
     this.handleNameChange = this.handleNameChange.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+  
+  
+  async getUser(userId){
+    const response = await axios.get(`http://localhost:3000/users/${userId}`)
+    return (response.data)
+  }
 
-  async createUser(newUser){ 
+  isUpdate(){
+    const { params } = this.props.match;
+    return (params.id !== undefined)?params.id:false;
+  }
+  
+  componentDidMount(){
+    const userId = this.isUpdate()
+    if(userId) {
+      this.getUser(userId)
+      .then((response)=>{
+          this.setState({
+            id:response.id,
+            email:response.email,
+            name:response.name
+          })
+      })
+    } 
+  } 
+
+  async createUser(newUser){
+    const userId = this.isUpdate(); 
+    if(userId){
+      delete newUser['id']; 
+      axios.put(
+        `http://localhost:3000/users/${userId}`,
+        newUser,
+        { headers: { 'Content-Type': 'application/json' } }
+      ).then((response)=>{
+        console.log(response)
+        this.redirect(response.data.id);
+      });
+    }
+    else {
       axios.post(
         'http://localhost:3000/users',
         newUser,
@@ -21,18 +60,15 @@ class Create extends React.Component {
       ).then((response)=>{
         console.log(response)
         this.redirect(response.data.id);
-      })
+      });
+    }
   }
 
   redirect = (userId) => { 
     const { history } = this.props;
     history.push(`/view/${userId}`)
   }
-
-  componentDidMount(){
-       
-  } 
-
+ 
   handleNameChange(event) { 
     this.setState({name: event.target.value}); 
   } 
@@ -62,4 +98,4 @@ class Create extends React.Component {
     )
   }
 }
-export default Create
+export default Update

@@ -32,7 +32,9 @@ class User extends React.Component {
         return (
             <div>
                 <h1>User Details</h1>
+                <h3>Id : {user.id}</h3>
                 <h3>Name : {user.name}</h3>
+                <h3>Email : {user.email}</h3>
                 <UpdateBtnCmp userId={params.id}></UpdateBtnCmp>
                 <DeteleBtnCmp userId={params.id}></DeteleBtnCmp>
             </div>)

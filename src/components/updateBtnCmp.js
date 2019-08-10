@@ -2,9 +2,6 @@ import React from 'react';
 import { withRouter } from "react-router";
 
 class UpdateBtnCmp extends React.Component {
-  constructor(){
-    super(); 
-  } 
   
   handlerClick = () => {  
     const { history, userId } = this.props;
