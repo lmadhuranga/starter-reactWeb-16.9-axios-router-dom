@@ -1,5 +1,5 @@
 import React from 'react'
-class Contact extends React.Component {
+class Create extends React.Component {
   onSubmit = () => {
     this.props.history.push('/')
   }
@@ -13,4 +13,4 @@ class Contact extends React.Component {
     )
   }
 }
-export default Contact
+export default Create

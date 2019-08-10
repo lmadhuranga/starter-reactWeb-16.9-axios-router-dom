@@ -10,7 +10,7 @@ import {
 import Home from './Pages/home'
 import Users from './Pages/users'
 import User from './Pages/user'
-import Contact from './Pages/contact'
+import Create from './Pages/create'
 import Notfound from './Pages/notfound'
 const routing = (
   <Router>
@@ -27,7 +27,7 @@ const routing = (
           </NavLink>
         </li>
         <li>
-          <NavLink activeClassName="active" to="/newUser">
+          <NavLink activeClassName="active" to="/create">
             New User
           </NavLink>
         </li>
@@ -37,7 +37,7 @@ const routing = (
         <Route exact path="/" component={Home} />
         <Route path="/user/:id" component={User} />
         <Route path="/users" component={Users} />
-        <Route path="/newUser" component={Contact} />
+        <Route path="/create" component={Create} />
         <Route component={Notfound} />
       </Switch>
     </div>
