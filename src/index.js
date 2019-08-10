@@ -7,10 +7,11 @@ import {
   BrowserRouter as Router,
   Switch,
 } from 'react-router-dom'
-import App from './App'
-import Users from './users'
-import Contact from './contact'
-import Notfound from './notfound'
+import Home from './Pages/home'
+import Users from './Pages/users'
+import User from './Pages/user'
+import Contact from './Pages/contact'
+import Notfound from './Pages/notfound'
 const routing = (
   <Router>
     <div>
@@ -26,16 +27,17 @@ const routing = (
           </NavLink>
         </li>
         <li>
-          <NavLink activeClassName="active" to="/contact">
-            Contact
+          <NavLink activeClassName="active" to="/newUser">
+            New User
           </NavLink>
         </li>
       </ul>
       <hr />
       <Switch>
-        <Route exact path="/" component={App} />
+        <Route exact path="/" component={Home} />
+        <Route path="/user/:id" component={User} />
         <Route path="/users" component={Users} />
-        <Route path="/contact" component={Contact} />
+        <Route path="/newUser" component={Contact} />
         <Route component={Notfound} />
       </Switch>
     </div>
