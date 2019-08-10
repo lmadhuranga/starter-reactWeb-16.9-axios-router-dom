@@ -1,16 +1,17 @@
 import React from 'react'
 import axios from 'axios'
 class Update extends React.Component {
-  constructor(){
-    super();
-    this.state = { 
-      name: '',
-      email: '',
-      id:0
+  constructor( ) {
+    super( );
+    this.state = {
+      contact :{
+        id:0,
+        name: '',
+        email: ''
+      }
     }
     
-    this.handleNameChange = this.handleNameChange.bind(this);
-    this.handleEmailChange = this.handleEmailChange.bind(this);
+    this.handleFieldFiller = this.handleFieldFiller.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   
@@ -22,7 +23,7 @@ class Update extends React.Component {
 
   isUpdate(){
     const { params } = this.props.match;
-    return (params.id !== undefined)?params.id:false;
+    return (params.id !== undefined) ? params.id : false;
   }
   
   componentDidMount(){
@@ -31,21 +32,23 @@ class Update extends React.Component {
       this.getUser(userId)
       .then((response)=>{
           this.setState({
-            id:response.id,
-            email:response.email,
-            name:response.name
+            contact:{
+              id:response.id,
+              email:response.email,
+              name:response.name
+            }
           })
       })
     } 
   } 
 
-  async createUser(newUser){
+  async createUser(newContact){
     const userId = this.isUpdate(); 
     if(userId){
-      delete newUser['id']; 
+      delete newContact['id']; 
       axios.put(
         `http://localhost:3000/users/${userId}`,
-        newUser,
+        newContact,
         { headers: { 'Content-Type': 'application/json' } }
       ).then((response)=>{
         console.log(response)
@@ -55,7 +58,7 @@ class Update extends React.Component {
     else {
       axios.post(
         'http://localhost:3000/users',
-        newUser,
+        newContact,
         { headers: { 'Content-Type': 'application/json' } }
       ).then((response)=>{
         console.log(response)
@@ -68,30 +71,34 @@ class Update extends React.Component {
     const { history } = this.props;
     history.push(`/view/${userId}`)
   }
- 
-  handleNameChange(event) { 
-    this.setState({name: event.target.value}); 
-  } 
-
-  handleEmailChange(event) { 
-    this.setState({email: event.target.value}); 
+  
+  handleFieldFiller(event) {
+    event.preventDefault();
+    let fieldName = event.target.name;
+    let fieldValue = event.target.value;
+    console.log('form data', {[fieldName]: fieldValue });
+    console.log('state data', this.state.contact);
+    this.setState( prevState => ({ 
+      contact : { ...prevState.contact, [fieldName]: fieldValue }
+    })); 
   }
 
-  handleSubmit(event) {
-    console.log(' submitted: ' , this.state);
+  handleSubmit(event) { 
     event.preventDefault(); 
-    this.createUser(this.state)
+    this.createUser(this.state.contact)
   }
+
   render() {
+    let { contact } = this.state;
     return (
       <form onSubmit={this.handleSubmit}>
         <label>
           Name:
-          <input type="text" value={this.state.name} onChange={this.handleNameChange} />
+          <input name="name" type="text" value={contact.name} onChange={this.handleFieldFiller} />
         </label> 
         <label>
           Email:
-          <input type="text" value={this.state.email} onChange={this.handleEmailChange} />
+          <input name="email" type="text" value={contact.email} onChange={this.handleFieldFiller} />
         </label>
         <input onClick={this.onSubmit} type="submit" value="Submit" />
       </form>
