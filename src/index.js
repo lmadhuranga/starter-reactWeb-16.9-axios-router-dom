@@ -9,7 +9,7 @@ import {
 } from 'react-router-dom'
 import Home from './Pages/home'
 import Users from './Pages/users'
-import User from './Pages/user'
+import View from './Pages/view'
 import Create from './Pages/create'
 import Notfound from './Pages/notfound'
 const routing = (
@@ -35,7 +35,7 @@ const routing = (
       <hr />
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route path="/user/:id" component={User} />
+        <Route path="/view/:id" component={View} />
         <Route path="/users" component={Users} />
         <Route path="/create" component={Create} />
         <Route component={Notfound} />

@@ -1,5 +1,7 @@
 import React from 'react';
 import axios from 'axios';
+import DeteleBtnCmp from '../components/deleteBtnCmp'
+import UpdateBtnCmp from '../components/updateBtnCmp'
 
 class User extends React.Component {
     constructor(){
@@ -23,13 +25,16 @@ class User extends React.Component {
             })
         })
     } 
-    
+
     render() { 
         const { user } = this.state;
+        const { params } = this.props.match
         return (
             <div>
                 <h1>User Details</h1>
                 <h3>Name : {user.name}</h3>
+                <UpdateBtnCmp userId={params.id}></UpdateBtnCmp>
+                <DeteleBtnCmp userId={params.id}></DeteleBtnCmp>
             </div>)
         }
     }

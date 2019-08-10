@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom' 
+import { Link } from 'react-router-dom';
+
+
 class Users extends React.Component {
   constructor(){
     super();
@@ -28,10 +30,10 @@ class Users extends React.Component {
     let usersList = <li>No Users</li>
     if(this.state.users.length>0){
       usersList = this.state.users.map((user) =>{
-        const contactUrl="/user/"+user.id  
+        const contactUrl="/view/"+user.id  
         return(
           <li key={ user.id } xs={12}>
-            {user.id} : <Link to={contactUrl} >{user.name} </Link>
+            {user.id} : <Link to={contactUrl} >{user.name} </Link> 
           </li>
         );
       });
