@@ -8,26 +8,26 @@ import {
   Switch,
 } from 'react-router-dom'
 import Home from './Pages/home'
-import Users from './Pages/users'
+import Contacts from './Pages/contacts'
 import View from './Pages/view'
 import Update from './Pages/update'
 import Notfound from './Pages/notfound'
 const routing = (
   <Router>
     <div>
-      <ul>
-        <li>
-          <NavLink exact activeClassName="active" to="/">
+      <ul className="nav">
+        <li className="nav-item" >
+          <NavLink className="nav-link" exact activeClassName="active" to="/">
             Home
           </NavLink>
         </li>
-        <li>
-          <NavLink activeClassName="active" to="/users">
-            Users
+        <li className="nav-item" >
+          <NavLink className="nav-link" activeClassName="active" to="/contacts">
+          Contacts
           </NavLink>
         </li>
-        <li>
-          <NavLink activeClassName="active" to="/update">
+        <li className="nav-item" >
+          <NavLink className="nav-link" activeClassName="active" to="/update">
             New User
           </NavLink>
         </li>
@@ -36,7 +36,7 @@ const routing = (
       <Switch>
         <Route exact path="/" component={Home} />
         <Route path="/view/:id" component={View} />
-        <Route path="/users" component={Users} />
+        <Route path="/contacts" component={Contacts} />
         <Route path="/update/:id?" component={Update} />
         <Route component={Notfound} />
       </Switch>

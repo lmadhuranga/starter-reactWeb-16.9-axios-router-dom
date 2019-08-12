@@ -1,18 +1,19 @@
 import React from 'react';
-import axios from 'axios';
-import DeteleBtnCmp from '../components/deleteBtnCmp'
-import UpdateBtnCmp from '../components/updateBtnCmp'
+import axios from 'axios'; 
+import { Link } from 'react-router-dom';
+import { appConfig } from '../config/globel.conf'
+import UpdateBtnCmp from '../components/updateBtnCmp';
 
 class User extends React.Component {
     constructor(){
         super();
         this.state = { 
             user: {}
-        }
+        } 
     }
 
     async getUser(userId){
-        const response = await axios.get(`http://localhost:3000/users/${userId}`)
+        const response = await axios.get(`${appConfig.app.host.url}/contacts/${userId}`)
         return (response.data)
     }
 
@@ -32,11 +33,14 @@ class User extends React.Component {
         return (
             <div>
                 <h1>User Details</h1>
-                <h3>Id : {user.id}</h3>
-                <h3>Name : {user.name}</h3>
-                <h3>Email : {user.email}</h3>
-                <UpdateBtnCmp userId={params.id}></UpdateBtnCmp>
-                <DeteleBtnCmp userId={params.id}></DeteleBtnCmp>
+                <ul>
+                    <li>Id : {user.id}</li>
+                    <li>Name : {user.name}</li>
+                    <li>Email : {user.email}</li>
+                </ul>
+                <UpdateBtnCmp userId={params.id}></UpdateBtnCmp>  &nbsp;
+                <Link className="btn btn-primary" to={"/contacts"} >Home</Link>    
+              
             </div>)
         }
     }

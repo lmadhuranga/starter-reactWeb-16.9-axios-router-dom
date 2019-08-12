@@ -10,9 +10,7 @@ class UpdateBtnCmp extends React.Component {
     
   render() { 
     return (
-      <div> 
-        <button onClick={(e) => this.handlerClick()}>U</button>
-      </div>
+      <button className="btn btn-sm btn-primary" onClick={(e) => this.handlerClick()}>Update <i className="fas  fa-edit"></i></button> 
     )
   }
 }

@@ -1,5 +1,7 @@
-import React from 'react'
-import axios from 'axios'
+import React from 'react';
+import axios from 'axios';
+import { appConfig } from '../config/globel.conf'
+
 class Update extends React.Component {
   constructor( ) {
     super( );
@@ -17,7 +19,7 @@ class Update extends React.Component {
   
   
   async getUser(userId){
-    const response = await axios.get(`http://localhost:3000/users/${userId}`)
+    const response = await axios.get(`${appConfig.app.host.url}/contacts/${userId}`)
     return (response.data)
   }
 
@@ -47,7 +49,7 @@ class Update extends React.Component {
     if(userId){
       delete newContact['id']; 
       axios.put(
-        `http://localhost:3000/users/${userId}`,
+        `${appConfig.app.host.url}/contacts/${userId}`,
         newContact,
         { headers: { 'Content-Type': 'application/json' } }
       ).then((response)=>{
@@ -57,7 +59,7 @@ class Update extends React.Component {
     }
     else {
       axios.post(
-        'http://localhost:3000/users',
+        `${appConfig.app.host.url}/contacts`,
         newContact,
         { headers: { 'Content-Type': 'application/json' } }
       ).then((response)=>{
@@ -75,9 +77,7 @@ class Update extends React.Component {
   handleFieldFiller(event) {
     event.preventDefault();
     let fieldName = event.target.name;
-    let fieldValue = event.target.value;
-    console.log('form data', {[fieldName]: fieldValue });
-    console.log('state data', this.state.contact);
+    let fieldValue = event.target.value; 
     this.setState( prevState => ({ 
       contact : { ...prevState.contact, [fieldName]: fieldValue }
     })); 
@@ -91,16 +91,16 @@ class Update extends React.Component {
   render() {
     let { contact } = this.state;
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label>
-          Name:
-          <input name="name" type="text" value={contact.name} onChange={this.handleFieldFiller} />
-        </label> 
-        <label>
-          Email:
-          <input name="email" type="text" value={contact.email} onChange={this.handleFieldFiller} />
-        </label>
-        <input onClick={this.onSubmit} type="submit" value="Submit" />
+      <form onSubmit={this.handleSubmit}> 
+        <div className="form-group col-md-6">
+          <label htmlFor="name">Name</label>
+          <input type="name" name="name" className="form-control" value={contact.name} onChange={this.handleFieldFiller} aria-describedby="nameHelp" placeholder="Enter Name" />
+        </div>
+        <div className="form-group col-md-6">
+          <label htmlFor="email">Email</label>
+          <input type="email" name="email" className="form-control" value={contact.email} onChange={this.handleFieldFiller} aria-describedby="nameHelp" placeholder="Enter Email" />
+        </div> 
+        <button onClick={this.onSubmit} type="submit" className="btn btn-sm btn-primary mb-2">Save <i className="fas fa-save"></i></button>
       </form>
     )
   }
