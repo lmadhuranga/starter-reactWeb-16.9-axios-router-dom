@@ -19,8 +19,8 @@ class Update extends React.Component {
   }
   
   
-  async getUser(userId){
-    const response = await axios.get(`${appConfig.app.host.url}/contacts/${userId}`)
+  async getUser(contactId){
+    const response = await axios.get(`${appConfig.app.host.url}/contacts/${contactId}`)
     return (response.data)
   }
 
@@ -30,9 +30,9 @@ class Update extends React.Component {
   }
   
   componentDidMount(){
-    const userId = this.isUpdate()
-    if(userId) {
-      this.getUser(userId)
+    const contactId = this.isUpdate()
+    if(contactId) {
+      this.getUser(contactId)
       .then((response)=>{
           this.setState({
             contact:{
@@ -47,11 +47,11 @@ class Update extends React.Component {
   } 
 
   async createUser(newContact){
-    const userId = this.isUpdate(); 
-    if(userId){
+    const contactId = this.isUpdate(); 
+    if(contactId){
       delete newContact['id']; 
       axios.put(
-        `${appConfig.app.host.url}/contacts/${userId}`,
+        `${appConfig.app.host.url}/contacts/${contactId}`,
         newContact,
         { headers: { 'Content-Type': 'application/json' } }
       ).then((response)=>{
@@ -65,15 +65,15 @@ class Update extends React.Component {
         newContact,
         { headers: { 'Content-Type': 'application/json' } }
       ).then((response)=>{
-        console.log(response);
+        // console.log(response);
         this.redirect(response.data.id);
       });
     }
   }
 
-  redirect = (userId) => { 
+  redirect = (contactId) => { 
     const { history } = this.props;
-    history.push(`/view/${userId}`);
+    history.push(`/view/${contactId}`);
   }
   
   handleFieldFiller(event) {
@@ -92,6 +92,9 @@ class Update extends React.Component {
 
   render() {
     let { contact } = this.state;
+    // Check data loaded only update page
+    if(contact.id===0 && this.isUpdate())
+      return(<div>Loading...</div>);
     return (
       <form onSubmit={this.handleSubmit}> 
         <div className="form-group col-md-6">

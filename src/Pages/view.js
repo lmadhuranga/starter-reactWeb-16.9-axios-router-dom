@@ -8,12 +8,12 @@ class User extends React.Component {
     constructor(){
         super();
         this.state = { 
-            user: {}
+            contact: {}
         } 
     }
 
-    async getUser(userId){
-        const response = await axios.get(`${appConfig.app.host.url}/contacts/${userId}`)
+    async getUser(contactId){
+        const response = await axios.get(`${appConfig.app.host.url}/contacts/${contactId}`)
         return (response.data)
     }
 
@@ -22,27 +22,30 @@ class User extends React.Component {
         this.getUser(params.id)
         .then((response)=>{
             this.setState({
-                user:response
+                contact:response
             })
         })
     } 
 
     render() { 
-        const { user } = this.state;
-        const { params } = this.props.match
+        const { contact } = this.state;
+        // const { params } = this.props.match;
+        
+        if(contact.name===undefined) 
+            return(<div>Loading...</div>);
+
         return (
             <div>
                 <h1>User Details</h1>
                 <ul>
-                    <li>Id : {user.id}</li>
-                    <li>Name : {user.name}</li>
-                    <li>Email : {user.email}</li>
-                    <li>Mobile : {user.mobile}</li>
+                    <li>Id : {contact.id}</li>
+                    <li>Name : {contact.name}</li>
+                    <li>Email : {contact.email}</li>
+                    <li>Mobile : {contact.mobile}</li>
                 </ul>
-                <UpdateBtnCmp userId={params.id}></UpdateBtnCmp>  &nbsp;
-                <Link className="btn btn-primary" to={"/contacts"} >Home</Link>    
-              
-            </div>)
+                <UpdateBtnCmp contactId={contact.id}></UpdateBtnCmp>  &nbsp;
+                <Link className="btn btn-primary" to={"/contacts"} >Home</Link>
+            </div>);
         }
     }
     export default User;

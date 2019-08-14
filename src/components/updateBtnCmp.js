@@ -4,8 +4,8 @@ import { withRouter } from "react-router";
 class UpdateBtnCmp extends React.Component {
   
   handlerClick = () => {  
-    const { history, userId } = this.props;
-    history.push(`/update/${userId}`)
+    const { history, contactId } = this.props;
+    history.push(`/update/${ contactId }`)
   }
     
   render() { 
