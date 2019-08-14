@@ -44,7 +44,7 @@ class Contacts extends React.Component {
 
   render() {
     // const { url } = this.props.match
-    let contactsList =<tr><td colSpan="2">No Contacts</td></tr>;
+    let contactsList = <tr><td colSpan="2">No Contacts</td></tr>;
     if(this.state.contacts.length>0){
       contactsList = this.state.contacts.map((contact) =>{ 
         return(

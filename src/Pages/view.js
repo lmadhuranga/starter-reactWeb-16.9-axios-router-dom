@@ -37,6 +37,7 @@ class User extends React.Component {
                     <li>Id : {user.id}</li>
                     <li>Name : {user.name}</li>
                     <li>Email : {user.email}</li>
+                    <li>Mobile : {user.mobile}</li>
                 </ul>
                 <UpdateBtnCmp userId={params.id}></UpdateBtnCmp>  &nbsp;
                 <Link className="btn btn-primary" to={"/contacts"} >Home</Link>    
@@ -44,4 +45,4 @@ class User extends React.Component {
             </div>)
         }
     }
-    export default User
+    export default User;

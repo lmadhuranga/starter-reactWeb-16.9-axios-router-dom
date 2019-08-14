@@ -8,8 +8,9 @@ class Update extends React.Component {
     this.state = {
       contact :{
         id:0,
+        email: '',
         name: '',
-        email: ''
+        mobile: ''
       }
     }
     
@@ -37,6 +38,7 @@ class Update extends React.Component {
             contact:{
               id:response.id,
               email:response.email,
+              mobile:response.mobile,
               name:response.name
             }
           })
@@ -53,7 +55,7 @@ class Update extends React.Component {
         newContact,
         { headers: { 'Content-Type': 'application/json' } }
       ).then((response)=>{
-        console.log(response)
+        console.log(response);
         this.redirect(response.data.id);
       });
     }
@@ -63,7 +65,7 @@ class Update extends React.Component {
         newContact,
         { headers: { 'Content-Type': 'application/json' } }
       ).then((response)=>{
-        console.log(response)
+        console.log(response);
         this.redirect(response.data.id);
       });
     }
@@ -71,7 +73,7 @@ class Update extends React.Component {
 
   redirect = (userId) => { 
     const { history } = this.props;
-    history.push(`/view/${userId}`)
+    history.push(`/view/${userId}`);
   }
   
   handleFieldFiller(event) {
@@ -85,7 +87,7 @@ class Update extends React.Component {
 
   handleSubmit(event) { 
     event.preventDefault(); 
-    this.createUser(this.state.contact)
+    this.createUser(this.state.contact);
   }
 
   render() {
@@ -100,9 +102,13 @@ class Update extends React.Component {
           <label htmlFor="email">Email</label>
           <input type="email" name="email" className="form-control" value={contact.email} onChange={this.handleFieldFiller} aria-describedby="nameHelp" placeholder="Enter Email" />
         </div> 
+        <div className="form-group col-md-6">
+          <label htmlFor="mobile">Mobile</label>
+          <input type="text" name="mobile" className="form-control" value={contact.mobile} onChange={this.handleFieldFiller} aria-describedby="nameHelp" placeholder="Enter Mobile" />
+        </div> 
         <button onClick={this.onSubmit} type="submit" className="btn btn-sm btn-primary mb-2">Save <i className="fas fa-save"></i></button>
       </form>
-    )
+    );
   }
 }
 export default Update
